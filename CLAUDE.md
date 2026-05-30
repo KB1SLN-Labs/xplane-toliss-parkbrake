@@ -4,9 +4,9 @@
 
 **Toliss_ParkBrake_Proper** is a FlyWithLua plugin script for X-Plane 12 that solves a hardware/software mismatch between the Thrustmaster TCA Quadrant parking brake lever and ToLiss Airbus aircraft.
 
-**Status**: Production-ready. Being packaged as an official open-source GitHub project (separate from APT Commercial work).
+**Status**: Production-ready with governance skills. Official open-source project (separate from APT Commercial work).
 
-**Current Version**: 1.3 (March 2026)
+**Current Version**: 1.5 (May 2026)
 
 **Supported Aircraft**: ToLiss A319, A320, A20N, A21N, A321, A339, A346
 

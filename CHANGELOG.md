@@ -2,6 +2,23 @@
 
 All notable changes to Toliss_ParkBrake_Proper are documented here.
 
+## [1.5] — 2026-05-30
+
+### Added
+- **Governance skills**: 4 reusable skills to enforce Kanban workflow and versioning discipline
+  - `tcaxpbrake-start-issue` — Create feature branch from Linear issue
+  - `tcaxpbrake-plan` — Generate implementation plan for non-trivial work
+  - `tcaxpbrake-commit` — Stage, commit with issue reference, push branch
+  - `tcaxpbrake-finish` — Merge to main, bump version, tag, release
+- **Skill documentation**: Comprehensive docs for each skill in `.claude/skills/`
+- **Linear integration**: Project-level governance with KB1SLN-Labs team (separate from APT)
+
+### Why
+- Enforces consistent workflow across development
+- Links all work to Linear issues (KB1SLN-1, KB1SLN-2, etc.)
+- Automates version bumping and changelog updates
+- Establishes governance pattern for future KB1SLN-Labs projects
+
 ## [1.4] — 2026-05-30
 
 ### Changed
