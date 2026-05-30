@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: FlyWithLua Documentation
+    url: https://forums.x-plane.org/index.php?/files/file/82888-flywithlua-ng-next-generation-edition-for-x-plane-12/
+    about: Official FlyWithLua NG plugin documentation and download
+  - name: ToLiss Aircraft
+    url: https://www.tolisspilot.com/
+    about: ToLiss Airbus aircraft for X-Plane
