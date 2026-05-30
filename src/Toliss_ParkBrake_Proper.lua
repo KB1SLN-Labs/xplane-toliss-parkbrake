@@ -3,8 +3,8 @@
 -- =============================================================================
 -- Author:      Chris McKenna
 -- Contact:     kb1sln@gmail.com
--- Version:     1.3
--- Date:        March 2026
+-- Version:     1.4
+-- Date:        May 2026
 -- Simulator:   X-Plane 12
 -- Aircraft:    ToLiss A319, A320, A20N, A21N, A321, A339, A346
 -- Hardware:    Thrustmaster TCA Quadrant Airbus Edition (with or without Add-On)
@@ -102,14 +102,12 @@
 --   A339  ToLiss Airbus A330-900
 --   A346  ToLiss Airbus A340-600
 --
--- CHANGES FROM v1.2:
---   - Scheduler changed from do_sometimes() (~10 seconds) to do_often()
---     (~1 second). This provides near real-time lever response while
---     retaining all other optimisations from v1.2. The ICAO check still
---     runs once at script load time. No per-frame work is performed.
---     The 1-second interval is imperceptible in normal use -- the cockpit
---     will reflect the lever position before the pilot has looked at the
---     annunciator panel.
+-- CHANGES FROM v1.3:
+--   - Converted ICAO code check from long OR chain to hash table lookup.
+--     Adding aircraft support is now a single-line table entry instead of
+--     modifying boolean logic.
+--   - Simplified 5-line if/else to Lua idiom: TL_ParkBrake = button(...) and 1 or 0
+--   - Trimmed redundant function comments; kept only essential scheduling note.
 --
 -- LICENSE:
 --   Freeware. Free to use, modify, and redistribute.
@@ -133,36 +131,28 @@ local PARK_BRAKE_BUTTON = 19
 -- applied; increasing this value is not recommended.
 local SPEED_THRESHOLD = 5.0
 
+-- Supported ToLiss aircraft ICAO codes. Each script load checks the loaded
+-- aircraft's ICAO against this table and sets is_toliss accordingly.
+local SUPPORTED_ICAO = {
+    A319 = true, A320 = true, A20N = true,
+    A21N = true, A321 = true, A339 = true, A346 = true
+}
+
 -- Evaluated once at script load time.
 -- FlyWithLua reloads all scripts when the aircraft changes, so this
 -- executes exactly once per aircraft load -- equivalent to the intended
 -- do_on_aircraft_load() behaviour without requiring that function.
 -- True if the loaded aircraft is a supported ToLiss type.
 -- If false, TCA_ParkBrake_Update() returns immediately and does no work.
-local is_toliss = false
-do
-    if PLANE_ICAO ~= nil then
-        local icao = string.upper(tostring(PLANE_ICAO))
-        is_toliss = (icao == "A319" or icao == "A320" or icao == "A20N" or
-                     icao == "A21N" or icao == "A321" or icao == "A339" or icao == "A346")
-    end
-end
+local is_toliss = PLANE_ICAO ~= nil and
+    SUPPORTED_ICAO[string.upper(tostring(PLANE_ICAO))] == true or false
 
--- Runs approximately every 1 second via do_often().
--- If is_toliss is false, returns immediately -- no work done.
--- If the aircraft is on the ground and groundspeed is below the threshold,
--- reads the physical lever state and writes it to AirbusFBW/ParkBrake.
--- If airborne or at speed, returns immediately -- no work done.
--- The ~1 second interval provides near real-time response with no
--- per-frame overhead.
+-- Runs ~every 1 second via do_often(). Reads physical lever state and
+-- writes to AirbusFBW/ParkBrake only when on ground below 5 m/s.
 function TCA_ParkBrake_Update()
     if not is_toliss then return end
     if ON_GROUND == 1 and GROUND_SPEED < SPEED_THRESHOLD then
-        if button(PARK_BRAKE_BUTTON) then
-            TL_ParkBrake = 1
-        else
-            TL_ParkBrake = 0
-        end
+        TL_ParkBrake = button(PARK_BRAKE_BUTTON) and 1 or 0
     end
 end
 

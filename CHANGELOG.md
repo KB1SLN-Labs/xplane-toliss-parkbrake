@@ -2,6 +2,18 @@
 
 All notable changes to Toliss_ParkBrake_Proper are documented here.
 
+## [1.4] — 2026-05-30
+
+### Changed
+- **ICAO lookup**: Converted from long OR chain to hash table. Adding aircraft support now requires a single-line table entry instead of modifying boolean logic.
+- **Code simplification**: Simplified 5-line if/else block to Lua idiom (`button(...) and 1 or 0`)
+- **Comment cleanup**: Trimmed redundant function comments; kept only essential scheduling information
+
+### Why
+- ICAO table is more maintainable and makes future aircraft additions straightforward
+- Idiomatic Lua reduces code footprint without changing behavior
+- Comments now explain the "why" of scheduling, not the "what" that the code already shows
+
 ## [1.3] — 2026-03-15
 
 ### Changed
