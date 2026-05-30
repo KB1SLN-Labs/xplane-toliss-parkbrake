@@ -74,13 +74,33 @@ Adding support for a new aircraft:
 - Create GitHub Pages site if community interest grows
 - Consider expanding to other aircraft that use similar datarefs
 
+## Governance Skills
+
+This project uses 4 reusable skills to enforce Kanban workflow and version discipline:
+
+1. **`tcaxpbrake-start-issue`** — Fetch Linear issue, create feature branch, summarize scope
+2. **`tcaxpbrake-plan`** — Generate implementation plan (for non-trivial work)
+3. **`tcaxpbrake-commit`** — Stage files, commit with issue reference, push branch
+4. **`tcaxpbrake-finish`** — Merge to main, bump version, update CHANGELOG, tag, push
+
+See `.claude/skills/` for detailed documentation of each skill.
+
+### Typical Workflow
+
+```
+1. /tcaxpbrake-start-issue 5          # Create branch KB1SLN-5
+2. [Implement changes]
+3. /tcaxpbrake-plan 5                 # (optional: for complex work)
+4. [Continue implementation]
+5. /tcaxpbrake-commit 5 "message"     # Push feature branch
+6. /tcaxpbrake-finish 5               # Merge, tag, release
+```
+
 ## GitHub Repo
 
-**Status**: To be created as private repo on user's GitHub account.
+**Status**: Live and public at https://github.com/KB1SLN-Labs/xplane-toliss-parkbrake
 
-**Naming**: (To be decided — e.g., `xplane-toliss-parkbrake`)
-
-Once created, all code and releases will be pushed there.
+**Releases**: All versions (v1.0–v1.4) available with tags. Releases created via `tcaxpbrake-finish` skill.
 
 ## Contact
 
