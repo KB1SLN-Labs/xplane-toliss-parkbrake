@@ -1,0 +1,32 @@
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Archives (we'll use git instead)
+*.zip
+*.rar
+*.7z
+
+# Build artifacts
+*.o
+*.so
+*.dylib
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.env.local
+.DS_Store
+
+# Legacy version folders (kept for reference, not needed in repo)
+/V1.0/
+/V1.1/
+/V1.2/
+/files/
